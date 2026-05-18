@@ -3,7 +3,7 @@ export default function NavBar() {
     <nav className="fixed top-0 z-50 w-full bg-surface shadow-sm py-4">
       <div className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
         <div className="font-headline-md text-headline-md font-bold text-primary">
-          Whiskers &amp; Beans
+          Miyagi Cat Cafe
         </div>
 
         <div className="hidden md:flex items-center gap-8">
