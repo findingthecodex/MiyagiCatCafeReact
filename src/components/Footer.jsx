@@ -5,10 +5,10 @@ export default function Footer() {
 
         <div>
           <div className="font-headline-sm text-headline-sm font-bold text-primary mb-4">
-            Whiskers &amp; Beans
+            Miyagis Kattkafé
           </div>
           <p className="font-body-sm text-body-sm text-on-surface-variant max-w-sm mb-6">
-            © 2024 Whiskers &amp; Beans Cafe. Made with love for feline friends.
+            © 2026 Miyagis Kattkafé. Gjort med kärlek i Sverige.
           </p>
           <div className="flex gap-6 mb-8 md:mb-0">
             <a href="#" className="text-on-surface-variant hover:text-primary transition-all">
