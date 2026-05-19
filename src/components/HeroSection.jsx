@@ -1,3 +1,5 @@
+import MiyagiImg from '../assets/images/miyagi3.png'
+
 export default function HeroSection() {
   return (
     <section className="relative h-[870px] flex items-center overflow-hidden">
@@ -5,8 +7,8 @@ export default function HeroSection() {
         <img
           alt="Cozy Cat Cafe"
           className="w-full h-full object-cover brightness-90"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0h-0jwaMk84iogLqtyCdyhtjc1FdNJQgugxbajy7n0xCwnfzQsmcM89CiQhzI4KppzNadpt4n3I08wGZN-IhmK9smx639gKpS8F53A8SwSePKsze0LxJXjJfqb03tOlmIhjYezJuX--HWjUgO4AoOB40k7sdEBqXF2H1p-k8AYWHErWDs8uUIR026KTMaJQ42P2ET_y1Hl7XcCOZR4Aj3hrA4Z7P0KzCOt5rjL9BrtwOHXHN2umm7gYdElOgChcfrnsefHrVrgiA"
-        />
+          src={MiyagiImg}    
+          />
         <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-transparent" />
       </div>
 
