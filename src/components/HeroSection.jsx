@@ -23,7 +23,7 @@ export default function HeroSection() {
           </p>
           <div className="flex flex-wrap gap-4">
             <button className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-lg text-label-lg shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2">
-              Boka Bord{' '}
+              Vår Story{' '}
               <span className="material-symbols-outlined">calendar_today</span>
             </button>
             <button className="bg-surface-container-low text-primary px-8 py-4 rounded-full font-label-lg text-label-lg border border-primary/20 hover:bg-surface-container-high transition-all flex items-center gap-2">

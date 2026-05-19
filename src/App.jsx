@@ -13,8 +13,8 @@ function App() {
       <main className="flex-grow pt-[72px]">
         <HeroSection />
         <CafeExperienceSection />
-        <FeaturedFelinesSection />
-        <HowItWorksSection />
+        {/*<FeaturedFelinesSection />*/}
+        {/*<HowItWorksSection />*/}
       </main>
       <Footer />
     </div>
