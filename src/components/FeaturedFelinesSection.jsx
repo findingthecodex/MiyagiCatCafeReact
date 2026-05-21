@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CatModel from './CatModel';;
+import CatModel from './CatModel';
 
 const cats = [
   {

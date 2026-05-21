@@ -20,13 +20,16 @@ export default function CatGallery() {
             setLoading(true);
 
             try {
+                // Hämta ALLA kattraser (eller många) från API:et utan paginering
                 const response = await fetch(
-                    `https://api.thecatapi.com/v1/breeds?limit=${catsPerPage}&page=${currentPage - 1}`
+                    'https://api.thecatapi.com/v1/breeds?limit=100'
                 );
 
                 const data = await response.json();
 
                 setBreeds(data);
+                // Reset till sida 1 när nya resultat hämtas
+                setCurrentPage(1);
             } catch (err) {
                 setError('Kunde inte hämta katter 😿');
             } finally {
@@ -35,7 +38,7 @@ export default function CatGallery() {
         };
 
         fetchCats();
-    }, [currentPage]);
+    }, []); // Tom dependency-array: hämta bara en gång vid mount
 
     // Filtrera
     const filteredBreeds = breeds.filter(
