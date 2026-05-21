@@ -1,7 +1,9 @@
 import { Link, useLocation } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
 export default function NavBar() {
   const { pathname } = useLocation()
+  const { cartTotal } = useCart()
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-surface shadow-sm py-4">
@@ -32,9 +34,17 @@ export default function NavBar() {
           {/*<button className="hidden sm:block font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-all">*/}
           {/*  Favoriter*/}
           {/*</button>*/}
-          <button className="bg-primary text-on-primary px-6 py-2 rounded-full font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container transition-all scale-95 active:scale-90 duration-150 ease-in-out flex items-center gap-2">
+          <Link 
+            to="/cart"
+            className="relative bg-primary text-on-primary px-6 py-2 rounded-full font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container transition-all scale-95 active:scale-90 duration-150 ease-in-out flex items-center gap-2"
+          >
             <span className="material-symbols-outlined">shopping_bag</span>
-          </button>
+            {cartTotal > 0 && (
+              <span className="absolute -top-2 -right-2 bg-rose-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
+                {cartTotal}
+              </span>
+            )}
+          </Link>
         </div>
       </div>
     </nav>

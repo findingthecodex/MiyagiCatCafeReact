@@ -5,6 +5,8 @@ import HeroSection from './components/HeroSection'
 import CafeExperienceSection from './components/CafeExperienceSection'
 import Footer from './components/Footer'
 import Cats from './pages/Cats'
+import Cart from './pages/Cart'
+import Checkout from './pages/Checkout'
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
             </>
           } />
           <Route path="/cats" element={<Cats />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </main>
       <Footer />
