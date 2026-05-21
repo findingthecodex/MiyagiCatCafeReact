@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import CatModel from './CatModel'; // Se till att filen finns: src/components/CatModel.jsx
+import CatModel from './CatModel';
+import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
 
-// Data för featured-katter (du kan byta ut, expandera eller hämta från API)
+// Data för featured-katter
 const cats = [
   {
     name: 'Luna',
@@ -25,50 +26,27 @@ const cats = [
 
 function CatCard({ cat, onOpen }) {
   return (
-    // wrapper är klickbar — gör den tabbbar och ge role för a11y
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={() => onOpen(cat)}
-      onKeyDown={(e) => { if (e.key === 'Enter') onOpen(cat); }}
-      className="bg-surface-container-lowest rounded-2xl overflow-hidden hygge-shadow hygge-shadow-hover transition-all group cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
-    >
-      {/* Bildcontainer: mobil h-48, desktop md:h-72 */}
-      <div className="relative md:h-72 h-48 overflow-hidden">
-        <img
-          alt={cat.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          src={cat.img}
-        />
-        <div className="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-md text-label-md">
-          Available
+    <Col md={4} className="mb-4">
+      <Card className="h-100 shadow-sm" onClick={() => onOpen(cat)} style={{ cursor: 'pointer' }}>
+        <div style={{ height: '250px', overflow: 'hidden' }}>
+            <Card.Img variant="top" src={cat.img} style={{ objectFit: 'cover', height: '100%', width: '100%' }} />
         </div>
-      </div>
-
-      <div className="p-6">
-        <h3 className="font-headline-sm text-headline-sm mb-2 text-on-surface">{cat.name}</h3>
-
-        <div className="flex flex-wrap gap-2 mb-4">
-          {cat.tags.map((tag) => (
-            <span
-              key={tag}
-              className="bg-surface-container text-on-surface-variant px-3 py-1 rounded-full text-label-md"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        <p className="font-body-sm text-body-sm text-on-surface-variant mb-6">{cat.description}</p>
-
-        <button
-          onClick={(e) => { e.stopPropagation(); onOpen(cat); }}
-          className="w-full py-3 border border-primary text-primary rounded-lg font-label-lg text-label-lg hover:bg-primary hover:text-on-primary transition-all"
-        >
-          Läs mer om {cat.name}
-        </button>
-      </div>
-    </div>
+        <Card.Body className="d-flex flex-column">
+          <Card.Title as="h3">{cat.name}</Card.Title>
+          <div className="mb-3">
+            {cat.tags.map((tag) => (
+              <Badge pill bg="secondary" key={tag} className="me-1">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+          <Card.Text className="flex-grow-1">{cat.description}</Card.Text>
+          <Button variant="outline-primary" onClick={(e) => { e.stopPropagation(); onOpen(cat); }}>
+            Läs mer om {cat.name}
+          </Button>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 }
 
@@ -87,27 +65,22 @@ export default function FeaturedFelinesSection() {
   };
 
   return (
-    <section className="py-section-padding bg-surface">
-      <div className="px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="font-headline-lg text-headline-lg mb-4 text-on-surface">
-            Våra Charmiga Vänner
-          </h2>
-          <p className="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">
+    <section className="py-5">
+      <Container>
+        <div className="text-center mb-5">
+          <h2>Våra Charmiga Vänner</h2>
+          <p className="lead text-muted">
             Möt några av katterna som just nu hänger på kaféet och väntar på sitt förevigt-hem.
           </p>
         </div>
-
-        {/* Grid: mobil 1 kolumn, desktop md -> 3 kolumner */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <Row>
           {cats.map((cat) => (
             <CatCard key={cat.name} cat={cat} onOpen={openModal} />
           ))}
-        </div>
-      </div>
+        </Row>
+      </Container>
 
-      {/* Modal-komponenten visas utanför grid */}
-      <CatModel cat={selectedCat} open={open} onClose={closeModal} />
+      <CatModel cat={selectedCat} show={open} onHide={closeModal} />
     </section>
   );
 }

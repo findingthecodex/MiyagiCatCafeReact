@@ -1,38 +1,37 @@
-import MiyagiImg from '../assets/images/miyagi3.png'
+import React from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import MiyagiImg from '../assets/images/Miyagi.png';
 
 export default function HeroSection() {
   return (
-    <section className="relative h-[870px] flex items-center overflow-hidden">
-      <div className="absolute inset-0 z-0">
+    <Container fluid className="p-0">
+      <div className="position-relative text-white" style={{ height: '70vh', minHeight: '400px' }}>
         <img
-          alt="Cozy Cat Cafe"
-          className="w-full h-full object-cover brightness-90"
-          src={MiyagiImg}    
-          />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/60 to-transparent" />
-      </div>
-
-      <div className="relative z-10 w-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
-        <div className="max-w-2xl">
-          <h1 className="font-headline-xl text-headline-xl mb-6 text-on-surface">
-            Ditt nya favoritställe för kaffe och kurr
-          </h1>
-          <p className="font-body-lg text-body-lg mb-10 text-on-surface-variant">
-            Upplev en harmonisk oas mitt i staden. Njut av hantverkskaffe i sällskap
-            med våra kärleksfulla katter som söker ett föralltid-hem.
+          src={MiyagiImg}
+          alt="Miyagi the cat"
+          className="w-100 h-100"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
+        <div
+          className="position-absolute top-0 start-0 w-100 h-100"
+          style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+        ></div>
+        <div className="position-absolute top-50 start-50 translate-middle text-center w-75">
+          <h1 className="display-3 fw-bold">Välkommen till Miyagis Kattkafé</h1>
+          <p className="lead my-3">
+            En fristad för katter och människor. Hitta din nya bästa vän eller bara njut av en kaffe i gott sällskap.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <button className="bg-primary text-on-primary px-8 py-4 rounded-full font-label-lg text-label-lg shadow-lg hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2">
-              Vår Story{' '}
-              <span className="material-symbols-outlined">calendar_today</span>
-            </button>
-            <button className="bg-surface-container-low text-primary px-8 py-4 rounded-full font-label-lg text-label-lg border border-primary/20 hover:bg-surface-container-high transition-all flex items-center gap-2">
-              Se våra katter{' '}
-              <span className="material-symbols-outlined">pets</span>
-            </button>
+          <div className="d-flex justify-content-center gap-2 mt-4">
+            <Button as={Link} to="/cats" variant="primary" size="lg">
+              Hitta en vän
+            </Button>
+            <Button as={Link} to="/boka" variant="light" size="lg">
+              Boka bord
+            </Button>
           </div>
         </div>
       </div>
-    </section>
-  )
+    </Container>
+  );
 }

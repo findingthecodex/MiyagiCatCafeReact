@@ -1,74 +1,45 @@
-import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
 
 export default function NavBar() {
-  const [open, setOpen] = useState(false); // mobilmeny-flagga
   const { pathname } = useLocation();
   const { cartTotal } = useCart();
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-surface shadow-sm py-4">
-      <div className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
-        {/* Logotyp */}
-        <Link to="/" className="font-headline-md text-headline-md font-bold text-primary">
+    <Navbar bg="light" expand="md" fixed="top" className="shadow-sm">
+      <Container>
+        <Navbar.Brand as={Link} to="/" className="fw-bold">
           Miyagis Kattkafé
-        </Link>
-
-        {/* Desktop-länkar (visas endast från md och uppåt) */}
-        <div className="hidden md:flex items-center gap-8">
-          <Link to="/" className={`font-label-lg text-label-lg transition-colors ${pathname === '/' ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant hover:text-primary'}`}>
-            Hem
-          </Link>
-          <Link to="/cats" className={`font-label-lg text-label-lg transition-colors ${pathname === '/cats' ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant hover:text-primary'}`}>
-            Våra katter
-          </Link>
-          <Link to="/adoptionsguide" className="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors">
-            Adoptions guide
-          </Link>
-          <Link to="/var-story" className="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors">
-            Vår story
-          </Link>
-        </div>
-
-        {/* Höger: cart + mobil-hamburger */}
-        <div className="flex items-center gap-4">
-          {/* Cart (länk) */}
-          <Link
-            to="/cart"
-            className="relative bg-primary text-on-primary px-4 py-2 rounded-full font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2"
-          >
-            <span className="material-symbols-outlined">shopping_bag</span>
-            {cartTotal > 0 && (
-              <span className="absolute -top-2 -right-2 bg-rose-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
-                {cartTotal}
-              </span>
-            )}
-          </Link>
-
-          {/* Mobil: hamburger-knapp (visas endast under md) */}
-          <button
-            onClick={() => setOpen((s) => !s)}
-            aria-expanded={open}
-            aria-label="Meny"
-            className="md:hidden p-2 rounded-md"
-          >
-            <span className="material-symbols-outlined">{open ? 'close' : 'menu'}</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Mobilmeny: visas fullbredd under nav när open === true */}
-      {open && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-surface shadow-md">
-          <nav className="flex flex-col p-4 gap-3 max-w-7xl mx-auto px-margin-mobile">
-            <Link to="/" onClick={() => setOpen(false)} className="py-2">Hem</Link>
-            <Link to="/cats" onClick={() => setOpen(false)} className="py-2">Våra katter</Link>
-            <Link to="/adoptionsguide" onClick={() => setOpen(false)} className="py-2">Adoptions guide</Link>
-            <Link to="/var-story" onClick={() => setOpen(false)} className="py-2">Vår story</Link>
-          </nav>
-        </div>
-      )}
-    </nav>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={Link} to="/" active={pathname === '/'}>
+              Hem
+            </Nav.Link>
+            <Nav.Link as={Link} to="/cats" active={pathname === '/cats'}>
+              Våra katter
+            </Nav.Link>
+            <Nav.Link as={Link} to="/adoptionsguide" active={pathname === '/adoptionsguide'}>
+              Adoptionsguide
+            </Nav.Link>
+            <Nav.Link as={Link} to="/var-story" active={pathname === '/var-story'}>
+              Vår story
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            <Button as={Link} to="/cart" variant="primary" className="position-relative">
+              <span className="material-symbols-outlined">shopping_bag</span>
+              {cartTotal > 0 && (
+                <Badge pill bg="danger" className="position-absolute top-0 start-100 translate-middle">
+                  {cartTotal}
+                </Badge>
+              )}
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
