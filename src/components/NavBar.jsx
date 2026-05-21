@@ -1,17 +1,21 @@
-import { Link, useLocation } from 'react-router-dom'
-import { useCart } from '../context/CartContext'
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 export default function NavBar() {
-  const { pathname } = useLocation()
-  const { cartTotal } = useCart()
+  const [open, setOpen] = useState(false); // mobilmeny-flagga
+  const { pathname } = useLocation();
+  const { cartTotal } = useCart();
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-surface shadow-sm py-4">
       <div className="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
+        {/* Logotyp */}
         <Link to="/" className="font-headline-md text-headline-md font-bold text-primary">
           Miyagis Kattkafé
         </Link>
 
+        {/* Desktop-länkar (visas endast från md och uppåt) */}
         <div className="hidden md:flex items-center gap-8">
           <Link to="/" className={`font-label-lg text-label-lg transition-colors ${pathname === '/' ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant hover:text-primary'}`}>
             Hem
@@ -19,9 +23,6 @@ export default function NavBar() {
           <Link to="/cats" className={`font-label-lg text-label-lg transition-colors ${pathname === '/cats' ? 'text-primary border-b-2 border-primary pb-1' : 'text-on-surface-variant hover:text-primary'}`}>
             Våra katter
           </Link>
-          {/*<Link to="/boka" className="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors">*/}
-          {/*  Boka bord*/}
-          {/*</Link>*/}
           <Link to="/adoptionsguide" className="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors">
             Adoptions guide
           </Link>
@@ -30,13 +31,12 @@ export default function NavBar() {
           </Link>
         </div>
 
+        {/* Höger: cart + mobil-hamburger */}
         <div className="flex items-center gap-4">
-          {/*<button className="hidden sm:block font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-all">*/}
-          {/*  Favoriter*/}
-          {/*</button>*/}
-          <Link 
+          {/* Cart (länk) */}
+          <Link
             to="/cart"
-            className="relative bg-primary text-on-primary px-6 py-2 rounded-full font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container transition-all scale-95 active:scale-90 duration-150 ease-in-out flex items-center gap-2"
+            className="relative bg-primary text-on-primary px-4 py-2 rounded-full font-label-lg text-label-lg hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center gap-2"
           >
             <span className="material-symbols-outlined">shopping_bag</span>
             {cartTotal > 0 && (
@@ -45,8 +45,30 @@ export default function NavBar() {
               </span>
             )}
           </Link>
+
+          {/* Mobil: hamburger-knapp (visas endast under md) */}
+          <button
+            onClick={() => setOpen((s) => !s)}
+            aria-expanded={open}
+            aria-label="Meny"
+            className="md:hidden p-2 rounded-md"
+          >
+            <span className="material-symbols-outlined">{open ? 'close' : 'menu'}</span>
+          </button>
         </div>
       </div>
+
+      {/* Mobilmeny: visas fullbredd under nav när open === true */}
+      {open && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-surface shadow-md">
+          <nav className="flex flex-col p-4 gap-3 max-w-7xl mx-auto px-margin-mobile">
+            <Link to="/" onClick={() => setOpen(false)} className="py-2">Hem</Link>
+            <Link to="/cats" onClick={() => setOpen(false)} className="py-2">Våra katter</Link>
+            <Link to="/adoptionsguide" onClick={() => setOpen(false)} className="py-2">Adoptions guide</Link>
+            <Link to="/var-story" onClick={() => setOpen(false)} className="py-2">Vår story</Link>
+          </nav>
+        </div>
+      )}
     </nav>
-  )
+  );
 }
