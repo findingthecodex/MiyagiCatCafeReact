@@ -12,30 +12,25 @@ export default function CatGallery() {
 
     useEffect(() => {
         const fetchCats = async () => {
+            setLoading(true);
+
             try {
                 const response = await fetch(
-                    'https://api.thecatapi.com/v1/breeds'
+                    `https://api.thecatapi.com/v1/breeds?limit=${catsPerPage}&page=${currentPage - 1}`
                 );
-
-                if (!response.ok) {
-                    throw new Error('Kunde inte hämta data från API:et');
-                }
 
                 const data = await response.json();
 
                 setBreeds(data);
-                setLoading(false);
             } catch (err) {
-                console.error('Fel vid hämtning:', err);
-                setError(
-                    'Hoppsan! Kunde inte ladda katterna. Försök igen senare 😿'
-                );
+                setError('Kunde inte hämta katter 😿');
+            } finally {
                 setLoading(false);
             }
         };
 
         fetchCats();
-    }, []);
+    }, [currentPage]);
 
     // Filtrera
     const filteredBreeds = breeds.filter(
