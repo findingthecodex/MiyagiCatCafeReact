@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import CatModel from './CatModel';;
+
 const cats = [
   {
     name: 'Luna',
@@ -17,11 +20,14 @@ const cats = [
     description: 'Liten i maten men stor i orden! Miso ser till att alla i rummet blir sedda.',
     img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA3WjAt96Wyk8eV4drCLZDm_wDHnio--4JtGoAjqdX6GLsxcImfdCox6lti96rym-tPK_ipAsBgrg-Js-H2IY67NQ-djFPNYAYUx_H4rVOoTIh1EALiF_L9I_zTpCMzmYUPbFakbnvBS9y68wk6S47ur_9OSeNClJcawATujQle78WPmuDQOmOk7qTz3EMN6fdfIoERRnViz8-9X1nM8VPpX6Me77eiLY8_XUhagMaGqzldQrVUyzslZrJJsMJeICcM6hQWMJQclRY',
   },
-]
+];
 
-function CatCard({ cat }) {
+function CatCard({ cat, onOpen }) {
   return (
-    <div className="bg-surface-container-lowest rounded-2xl overflow-hidden hygge-shadow hygge-shadow-hover transition-all group">
+    <div
+      onClick={() => onOpen(cat)}
+      className="bg-surface-container-lowest rounded-2xl overflow-hidden hygge-shadow hygge-shadow-hover transition-all group cursor-pointer"
+    >
       <div className="relative h-72 overflow-hidden">
         <img
           alt={cat.name}
@@ -42,15 +48,31 @@ function CatCard({ cat }) {
           ))}
         </div>
         <p className="font-body-sm text-body-sm text-on-surface-variant mb-6">{cat.description}</p>
-        <button className="w-full py-3 border border-primary text-primary rounded-lg font-label-lg text-label-lg hover:bg-primary hover:text-on-primary transition-all">
+        <button
+          onClick={(e) => { e.stopPropagation(); onOpen(cat); }}
+          className="w-full py-3 border border-primary text-primary rounded-lg font-label-lg text-label-lg hover:bg-primary hover:text-on-primary transition-all"
+        >
           Läs mer om {cat.name}
         </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default function FeaturedFelinesSection() {
+  const [selectedCat, setSelectedCat] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const openModal = (cat) => {
+    setSelectedCat(cat);
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+    setSelectedCat(null);
+  };
+
   return (
     <section className="py-section-padding bg-surface">
       <div className="px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto">
@@ -64,10 +86,12 @@ export default function FeaturedFelinesSection() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
           {cats.map((cat) => (
-            <CatCard key={cat.name} cat={cat} />
+            <CatCard key={cat.name} cat={cat} onOpen={openModal} />
           ))}
         </div>
       </div>
+
+      <CatModal cat={selectedCat} open={open} onClose={closeModal} />
     </section>
-  )
+  );
 }

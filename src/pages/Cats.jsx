@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import CatModel from '../components/CatModel'; // importera modal-komponenten
 
 export default function CatGallery() {
     const [breeds, setBreeds] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // Modal state för vald katt
+    const [selectedBreed, setSelectedBreed] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -36,7 +41,7 @@ export default function CatGallery() {
     const filteredBreeds = breeds.filter(
         (breed) =>
             breed.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            breed.origin.toLowerCase().includes(searchTerm.toLowerCase())
+            (breed.origin || '').toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     // Pagination logic
@@ -48,7 +53,7 @@ export default function CatGallery() {
         indexOfLastCat
     );
 
-    const totalPages = Math.ceil(filteredBreeds.length / catsPerPage);
+    const totalPages = Math.max(1, Math.ceil(filteredBreeds.length / catsPerPage));
 
     // Byt sida
     const nextPage = () => {
@@ -61,6 +66,26 @@ export default function CatGallery() {
         if (currentPage > 1) {
             setCurrentPage((prev) => prev - 1);
         }
+    };
+
+    // --- Modal handlers ---
+    const openBreedModal = (breed) => {
+        const imageUrl = breed.reference_image_id
+            ? `https://cdn2.thecatapi.com/images/${breed.reference_image_id}.jpg`
+            : 'https://placehold.co/600x400?text=Ingen+bild';
+
+        // Forma ett objekt som CatModel förväntar sig (har property 'img', 'name', osv)
+        setSelectedBreed({
+            ...breed,
+            img: imageUrl,
+            name: breed.name,
+        });
+        setModalOpen(true);
+    };
+
+    const closeBreedModal = () => {
+        setModalOpen(false);
+        setSelectedBreed(null);
     };
 
     if (loading) {
@@ -118,7 +143,8 @@ export default function CatGallery() {
                             return (
                                 <div
                                     key={breed.id}
-                                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border border-slate-100"
+                                    className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition border border-slate-100 cursor-pointer"
+                                    onClick={() => openBreedModal(breed)} // gör hela kortet klickbart
                                 >
                                     {/* Image */}
                                     <div className="h-56 overflow-hidden bg-slate-200">
@@ -186,6 +212,9 @@ export default function CatGallery() {
                     </p>
                 </div>
             )}
+
+            {/* Rendera modal */}
+            <CatModel cat={selectedBreed} open={modalOpen} onClose={closeBreedModal} />
         </div>
     );
 }
