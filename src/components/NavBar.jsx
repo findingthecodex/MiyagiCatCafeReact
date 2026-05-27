@@ -12,7 +12,7 @@ export default function NavBar() {
         /* Tvinga hover på ALLA länkar, oavsett om de är aktiva eller inte */
         .navbar.custom-nav .nav-link:hover,
         .navbar.custom-nav .nav-link.active:hover {
-        color: #ff9100 !important;
+        color: #f3cd39 !important;
         /* text-shadow: horisontell vertikal oskärpa färg */
         text-shadow: 0 0 10px rgba(255, 179, 0, 0.6) !important;
         opacity: 1 !important;
