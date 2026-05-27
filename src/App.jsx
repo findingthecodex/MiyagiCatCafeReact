@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import Cats from './pages/Cats'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
+import Story from './pages/Story'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/cats" element={<Cats />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/story" element={<Story />} />
         </Routes>
       </main>
       <Footer />
