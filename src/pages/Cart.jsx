@@ -18,12 +18,24 @@ function CheckoutModal({ show, onHide, cartCost, clearCart }) {
     };
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        onHide();
-        alert(`Tack ${formData.name}! Din order är skickad.\n\nTotalt: ${cartCost} SEK`);
-        clearCart();
-        setFormData({ name: '', email: '', address: '' });
-    };
+    e.preventDefault();
+    onHide();
+    
+    // En renare, mer strukturerad alert med emojier
+    alert(
+        `🎉 TACK FÖR DIN ORDER!\n` +
+        `----------------------------------------\n\n` +
+        `Din beställning är nu på väg till:\n` +
+        `${formData.name}\n` +
+        `${formData.address}\n\n` +
+        `----------------------------------------\n` +
+        `Totalt att betala: ${cartCost} SEK\n\n` +
+        `Ha en fantastisk dag!`
+);
+
+    clearCart();
+    setFormData({ name: '', email: '', address: '' });
+};
 
     return (
         <Modal show={show} onHide={onHide} centered>
