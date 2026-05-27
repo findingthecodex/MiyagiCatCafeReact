@@ -12,9 +12,9 @@ export default function NavBar() {
         /* Tvinga hover på ALLA länkar, oavsett om de är aktiva eller inte */
         .navbar.custom-nav .nav-link:hover,
         .navbar.custom-nav .nav-link.active:hover {
-        color: #f3cd39 !important;
+        color: #f9a01a !important;
         /* text-shadow: horisontell vertikal oskärpa färg */
-        text-shadow: 0 0 10px rgba(255, 179, 0, 0.6) !important;
+        text-shadow: 0 0 10px rgba(255, 179, 0, 0.75) !important;
         opacity: 1 !important;
         transition: all 0.2s ease-in-out;
         }
@@ -35,7 +35,7 @@ export default function NavBar() {
       <Navbar bg="light" expand="md" fixed="top" className="shadow-sm custom-nav">
         <Container>
           <Navbar.Brand as={Link} to="/" className="fw-bold">
-            Miyagis Kattkafé 
+            Miyagis Kattkafé
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
