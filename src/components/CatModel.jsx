@@ -11,7 +11,7 @@ export default function CatModel({ cat, show, onHide }) {
       id: cat.id || cat.name,
       name: cat.name || cat?.breed?.name,
       img: cat.img || cat.image || cat.imageUrl,
-      price: 299,
+      price: 2000,
     });
     onHide();
   };
@@ -49,7 +49,7 @@ export default function CatModel({ cat, show, onHide }) {
               </p>
             )}
             <div className="p-3 bg-light rounded mt-3">
-              <h4>299 SEK</h4>
+              <h4>2000 SEK</h4>
               <p className="text-muted mb-0">Adoptionsavgift</p>
             </div>
           </Col>
