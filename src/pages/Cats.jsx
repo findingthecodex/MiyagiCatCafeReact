@@ -1,27 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import CatModel from '../components/CatModel';
-import { Container, Row, Col, Card, Form, Button, Pagination, Spinner, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card, Form, Pagination, Spinner, Alert } from 'react-bootstrap';
 
+// Vi hanterar hover-state lokalt i CatCard-komponenten
 function CatCard({ breed, onOpen }) {
+  const [isHovered, setIsHovered] = useState(false);
+
   const imageUrl = breed.reference_image_id
     ? `https://cdn2.thecatapi.com/images/${breed.reference_image_id}.jpg`
     : 'https://placehold.co/600x400?text=Ingen+bild';
 
+  // Hover-styling som aktiveras dynamiskt
+  const cardStyle = {
+    cursor: 'pointer',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    transform: isHovered ? 'translateY(-5px)' : 'translateY(0)',
+    boxShadow: isHovered 
+      ? '0 10px 20px rgba(0,0,0,0.15)' 
+      : '0 2px 4px rgba(0,0,0,0.05)'
+  };
+
   return (
-    <Col md={6} lg={4} xl={3} className="mb-4">
-      <Card className="h-100 shadow-sm" onClick={() => onOpen(breed)} style={{ cursor: 'pointer' }}>
-        <div style={{ height: '200px', overflow: 'hidden' }}>
-            <Card.Img variant="top" src={imageUrl} alt={breed.name} style={{ objectFit: 'cover', height: '100%', width: '100%' }} />
+    // row-cols hanterar bredden, men vi sätter xs={12} som fallback för mobiltelefoner
+    <Col xs={12} className="mb-4">
+      <Card 
+        className="h-100" 
+        onClick={() => onOpen(breed)} 
+        style={cardStyle}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div style={{ height: '150px', overflow: 'hidden' }}>
+          <Card.Img 
+            variant="top" 
+            src={imageUrl} 
+            alt={breed.name} 
+            style={{ objectFit: 'cover', height: '100%', width: '100%' }} 
+          />
         </div>
-        <Card.Body>
-          <Card.Title as="h5">{breed.name}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">📍 {breed.origin}</Card.Subtitle>
+        <Card.Body className="p-3">
+          <Card.Title as="h6" className="text-truncate">{breed.name}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted small">📍 {breed.origin}</Card.Subtitle>
           <Card.Text style={{
               display: '-webkit-box',
-              WebkitLineClamp: 3,
+              WebkitLineClamp: 2,
               WebkitBoxOrient: 'vertical',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
+              fontSize: '0.85rem'
             }}>
             {breed.description}
           </Card.Text>
@@ -39,7 +65,7 @@ export default function CatGallery() {
     const [selectedBreed, setSelectedBreed] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const catsPerPage = 8; // Increased for better layout
+    const catsPerPage = 10; // 10 katter totalt blir perfekt uppdelat på två rader á 5 stycken
 
     useEffect(() => {
         const fetchCats = async () => {
@@ -124,7 +150,8 @@ export default function CatGallery() {
 
             {currentCats.length > 0 ? (
                 <>
-                    <Row>
+                    {/* row-cols-md-3 sätter 3 per rad på surfplattor, row-cols-lg-5 sätter exakt 5 per rad på datorskärmar */}
+                    <Row className="row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
                         {currentCats.map((breed) => (
                             <CatCard key={breed.id} breed={breed} onOpen={openBreedModal} />
                         ))}
