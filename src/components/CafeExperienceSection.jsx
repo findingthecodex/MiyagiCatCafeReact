@@ -47,7 +47,7 @@ export default function CafeExperienceSection() {
               </span>
               
               <h2 className="display-6 fw-bold mb-4 text-dark">
-                The Cafe Experience
+                Ditt nya favoritställe
               </h2>
               
               <p className="text-muted-custom fs-5 mb-4">
