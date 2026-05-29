@@ -46,7 +46,7 @@ export default function NavBar() {
               <Nav.Link as={Link} to="/cats" active={pathname === '/cats'}>
                 Våra katter
               </Nav.Link>
-              <Nav.Link as={Link} to="/adoptionsguide" active={pathname === '/adoptionsguide'}>
+              <Nav.Link as={Link} to="/adoptionguide" active={pathname === '/adoptionguide'}>
                 Adoptionsguide
               </Nav.Link>
               <Nav.Link as={Link} to="/story" active={pathname === '/story'}>

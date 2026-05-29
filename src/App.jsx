@@ -8,6 +8,7 @@ import Cats from './pages/Cats'
 import Cart from './pages/Cart'
 import Checkout from './pages/Checkout'
 import Story from './pages/Story'
+import AdoptionGuide from './pages/AdoptionGuide'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/story" element={<Story />} />
+          <Route path="/adoptionguide" element={<AdoptionGuide />} />
         </Routes>
       </main>
       <Footer />
