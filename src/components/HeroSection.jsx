@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import MiyagiImg from '../assets/images/Miyagi.png';
+import MiyagiImg from '../assets/images/miyagi3.png';
 
 export default function HeroSection() {
   return (
